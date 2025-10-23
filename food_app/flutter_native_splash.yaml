@@ -1,0 +1,29 @@
+flutter_native_splash:
+  # Main background color
+  color: "#42a5f5"
+
+  # Splash image (should be a PNG at least 4x size for better quality)
+  image: assets/images/Logo.png
+
+  # Optional branding (shown at the bottom of the splash screen)
+  branding: assets/images/Logo.png
+  #branding_mode: bottom
+  #branding_bottom_padding: 24
+
+  # Dark mode support
+  color_dark: "#042a49"
+  image_dark: assets/images/Logo.png
+  branding_dark: assets/images/Logo.png
+
+  android_12:
+    # Android 12+ uses a circular icon in the center
+    image: assets/images/Logo.png
+    color: "#42a5f5"
+    icon_background_color: "#111111"
+    branding: assets/images/Logo.png
+
+    # Dark mode for Android 12
+    color_dark: "#042a49"
+    image_dark: assets/images/Logo.png
+    icon_background_color_dark: "#eeeeee"
+    branding_dark: assets/images/Logo.png
