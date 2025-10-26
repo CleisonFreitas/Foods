@@ -3,9 +3,11 @@
 namespace Tests\Http\Controllers;
 
 use App\Enums\FoodCategoryEnum;
+use App\Models\Client;
 use App\Models\Food;
 use App\Models\Restaurant;
 use App\Support\Helper;
+use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -14,8 +16,24 @@ final class FoodControllerTest extends TestCase
     #[Test]
     public function index(): void
     {
-        $response = $this->getJson('api/food');
+        Sanctum::actingAs(
+            Client::factory()->create()
+        );
+        $food = Food::factory()->create();
+        $payload = [
+            'filters' => [
+                ['column' => 'id', 'value' => $food->id],
+                ['column' => 'nome', 'value' => $food->nome],
+            ],
+            'orders' => [['column' => 'id', 'order' => 'asc']],
+        ];
+        $response = $this->getJson('api/food?'.http_build_query($payload));
         $response->assertOk();
+        $response->assertJsonStructure([
+            'data' => [
+                0 => ['id', 'nome', 'categoria', 'image']
+            ]
+            ]);
     }
 
     #[Test]
